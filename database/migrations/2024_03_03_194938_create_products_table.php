@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('unit');
             $table->decimal('price', 10, 2);
-            $table->decimal('quantity', 10, 2);
+            $table->decimal('quantity', 10, 2)->default(0);
             $table->decimal('alert_quantity', 10, 2);
             $table->string('image')->nullable();
             $table->string('status')->default('active');

@@ -7,11 +7,13 @@ use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Faker\Provider\ar_EG\Text;
 use Filament\Forms;
+use Filament\Forms\Get;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TextArea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -41,9 +43,10 @@ class ProductResource extends Resource
                     ->options(fn () => \App\Models\Category::pluck('name', 'id'))
                     ->required()
                     ->searchable(),
-                TextInput::make('description')
+                TextArea::make('description')
                     ->label('Description')
-                    ->required(),
+                    ->required()
+                    ->rows(3),
                 TextInput::make('sku')
                     ->label('SKU')
                     ->required(),
@@ -64,27 +67,24 @@ class ProductResource extends Resource
                 TextInput::make('price')
                     ->label('Price')
                     ->required(),
-                TextInput::make('quantity')
-                    ->label('Quantity')
-                    ->required(),
                 TextInput::make('alert_quantity')
                     ->label('Alert Quantity')
                     ->required(),
+                Checkbox::make('is_expirable')
+                    ->label('Is Expirable')
+                    ->live(),
+                DatePicker::make('expires_at')
+                    ->label('Expiration Date')
+                    ->hidden(fn (Get $get): bool => ! $get('is_expirable')),
                 FileUpload::make('image')
                     ->label('Image')
                     ->disk('public')
                     ->directory('products')
                     ->image()
                     ->imageEditorViewportWidth('150')
-                    ->imageEditorViewportHeight('150'),
-                TextInput::make('status')
-                    ->label('Status')
-                    ->required(),
-                Checkbox::make('is_expirable')
-                    ->label('Is Expirable'),
-                DatePicker::make('expires_at')
-                    ->label('Expiration Date'),
-            ]);
+                    ->imageEditorViewportHeight('150')
+                    ->previewable(),
+                ]);
     }
 
     public static function table(Table $table): Table

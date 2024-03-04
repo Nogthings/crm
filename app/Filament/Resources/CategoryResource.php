@@ -53,12 +53,8 @@ class CategoryResource extends Resource
                     ->label('Description')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('created_by')
+                TextColumn::make('creator.name')
                     ->label('Created By')
-                    ->description(function (Category $record): string {
-                        $user = $record->creator;
-                        return $user ? $user->name : '';
-                    }, position: 'above ')
                     ->searchable()
                     ->sortable(),
             ])
