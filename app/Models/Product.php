@@ -47,4 +47,9 @@ class Product extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

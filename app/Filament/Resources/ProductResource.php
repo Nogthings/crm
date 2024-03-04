@@ -39,7 +39,8 @@ class ProductResource extends Resource
                 Select::make('category_id')
                     ->label('Category')
                     ->options(fn () => \App\Models\Category::pluck('name', 'id'))
-                    ->required(),
+                    ->required()
+                    ->searchable(),
                 TextInput::make('description')
                     ->label('Description')
                     ->required(),
@@ -49,9 +50,11 @@ class ProductResource extends Resource
                 TextInput::make('barcode')
                     ->label('Barcode')
                     ->required(),
-                TextInput::make('brand')
+                Select::make('brand')
                     ->label('Brand')
-                    ->required(),
+                    ->required()
+                    ->options(fn () => \App\Models\Brand::pluck('name', 'id'))
+                    ->searchable(),
                 TextInput::make('model')
                     ->label('Model')
                     ->required(),

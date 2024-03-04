@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('sku');
             $table->string('barcode');
-            $table->string('brand');
+            $table->foreignId('brand');
             $table->string('model');
             $table->string('unit');
             $table->decimal('price', 10, 2);
